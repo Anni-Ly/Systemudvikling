@@ -1,0 +1,96 @@
+
+@startuml
+package "CoronaNet" as kb{
+package "Beslutningstager interface"{
+[Præsentattion af services] as sr
+[Coronastatistikker] as fi
+[Guidelines - opdatere] as cm
+}
+package "Sundhedsprofessionel interface" {
+[Præsentation af services2] as mumu
+[Patient Data] as an
+[Kontakt til patient] as kk
+}
+}
+package "DataBase"{
+database "Corona Database" as sp
+database "Patient Database" as lulu
+}
+package "Smittestop" as Smittestop{
+[Guidelines] as hu
+[Patient informationer] as we
+[Coronastatistikker1] as gg
+[Præsentation af services1] as wewe
+[Indbakke] as bb
+}
+Beslutningstagere == (Sikkerhed)
+Patientborger == (Sikkerhed)
+Sundhedsprofessionelle == (Sikkerhed)
+(Sikkerhed)
+(Sikkerhed) -- wewe
+wewe -- gg
+wewe -- we
+wewe -- hu
+gg <-- sp
+(Sikkerhed) - sr
+sr -- fi
+fi <-- sp
+sr -- cm
+cm --> hu
+we --> sp
+(Sikkerhed) -- mumu
+we --> lulu
+lulu--> an
+mumu -- an
+wewe --  bb
+kk --> bb
+mumu -- kk
+
+@enduml
+
+@startuml
+
+package "lag 1 Brugergrænseflade" as jj{
+[Borger]
+[Sundhedsprofessionelle]
+[Beslutningstagere]
+}
+
+package "lag 2 Autorisering" as hh{
+[Sikkerhedsservice]
+}
+
+package "lag 3 Præsentation af Services " as gg{
+[Borger Services]
+[Beslutningstagere services]
+[Sundhedsprofessionelles services]
+}
+package "lag 4 Common data" as ff {
+[Smittestop]
+[CoronaNet]
+[MySQL]
+}
+package "lag 5 Decentraliseret prouktion systemer" as dd{
+[Patient registrer]
+[Testcentre]
+}
+
+
+[Beslutningstagere] -.> [Sikkerhedsservice]
+[Sundhedsprofessionelle] -.> [Sikkerhedsservice]
+[Borger] -.> [Sikkerhedsservice]
+[Sikkerhedsservice]    -.> [Beslutningstagere services]
+[Sikkerhedsservice] -.> [Borger Services]
+[Sikkerhedsservice] -.> [Sundhedsprofessionelles services]
+[Beslutningstagere services]  -.> [CoronaNet]
+[Sundhedsprofessionelles services] -.> [CoronaNet]
+[Borger Services] -.> [Smittestop]
+[MySQL] -.> [Patient registrer]
+[CoronaNet] -.> [Testcentre]
+[Smittestop] -.> [Testcentre]
+@enduml
+
+
+@startuml
+@enduml
+

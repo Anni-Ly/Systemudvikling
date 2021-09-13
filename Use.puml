@@ -1,0 +1,39 @@
+@startuml
+left to right direction
+skinparam packageStyle rect
+actor Sundhedsproffesionelle
+actor Smittestop
+actor Beslutningstager
+actor Borger
+
+rectangle CoronaNet {
+    rectangle Sundhedsprofessionelle_services {
+        Sundhedsproffesionelle --(Patient Data)
+        Sundhedsproffesionelle -- (Konsulter patient)
+        (Konsulter patient) .-> (Send Besked): <<Extend>>
+        Sundhedsproffesionelle --(Opdater/ændre mutationsnavn)
+        Sundhedsproffesionelle --(Se Samtykke)
+        (Se Samtykke) <-. (Se sensordata): <<Uses>>
+        Sundhedsproffesionelle --(Se sensordata)
+        (Se Samtykke) <-.(Se Geolokation): <<Uses>>
+        Sundhedsproffesionelle -- (Se Geolokation)
+        Sundhedsproffesionelle -- (Send Besked)
+    }
+    rectangle beslutningstager_services {
+    Beslutningstager -- (Se Guidelines)
+    Beslutningstager -- (Opdatere/ændre Guidelines)
+    Beslutningstager -- (Se Statistikker)
+    }
+    rectangle Borger_services{
+    Borger -- (Fjerne Samtykke)
+    Borger -- (Give Samtykke)
+
+
+    }
+}
+
+Smittestop -up- (Send Besked)
+
+
+@enduml
+
